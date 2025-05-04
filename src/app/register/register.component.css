@@ -1,0 +1,13 @@
+.e-input-eye:before {
+  content:'\e345';
+  font-family: e-icons;
+  font-size: 13px;
+}
+
+.align-checkbox-right.e-control-wrapper .e-textbox {
+  text-align:right !important;
+}
+
+.e-label {
+  margin-left: 0 !important;
+}

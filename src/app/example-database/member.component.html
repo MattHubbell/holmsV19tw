@@ -1,0 +1,21 @@
+<div class="bg-white dark:bg-gray-800 rounded-lg px-10 py-14 ring shadow-xl ring-gray-900/5 container" >
+  <div>
+    <label style="padding: 30px 17px 0 0">Enter page size:</label>
+    <ejs-textbox #textbox width="120"></ejs-textbox>
+    <button ejs-button #button id="button" class="ml-5" (created)=clickHandler($event)>click button</button>
+  </div>
+  <div style="padding:20px 0 0 0">
+    <ejs-grid #grid id="PagingGrid" [dataSource]="memberService.list" [allowPaging]="true" height="325">
+      <e-columns>
+        <e-column field='data.memberNo' headerText='#' textAlign='Right' width=30></e-column>
+        <e-column field='memberName' headerText='Member Name' width=200></e-column>
+        <e-column field='addrLine1' headerText='Address 1' width=120></e-column>
+        <e-column field='addrLine2' headerText='Address 2' width=120></e-column>
+        <e-column field='city' headerText='City' width=120></e-column>
+        <e-column field='state' headerText='St' width=35></e-column>
+        <e-column field='zip' headerText='Zip' width=50></e-column>
+        <e-column field='country' headerText='Country' width=100></e-column>
+      </e-columns>
+    </ejs-grid>
+  </div>
+</div>

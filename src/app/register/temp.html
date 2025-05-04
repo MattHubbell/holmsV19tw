@@ -1,0 +1,97 @@
+<div div class="bg-gray-100 dark:bg-gray-800 rounded-lg px-14 py-14 ring shadow-xl ring-gray-900/5 container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <h1 class="text-gray-900 dark:text-white mt-2 text-base font-medium tracking-tight">
+      Registration
+    </h1>
+
+    <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+      Membership Form
+    </p>
+
+    <div class="grid grid-flow-row grid-cols-5 xs:grid-flow-col gap-4">
+
+      <!-- Row 1 -->
+      <div>
+        <!-- Registration Name -->
+        <ejs-textbox id="name" type="text" placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" formControlName="name" class="col-span-2" />
+        @if (form.get('name')?.touched && form.get('name')?.errors) {
+          <div class="error-message">Registration Name is required.</div>
+        }
+
+        <!-- Are you a member ?-->
+        <div class="mt-6 col-start-5 col-end-6">
+          <ejs-checkbox label="Already a member?" labelPosition="before" />
+        </div>
+      </div>
+
+
+      <!-- Row 2 -->
+      <!-- Address Line 1-->
+      <ejs-textbox id="addrLine1" type="text" placeholder="Address Line 1" floatLabelType="Auto" class="col-span-2"/>
+
+      <!-- Member # -->
+      <ejs-textbox id="memberNo" type="text" placeholder="Member #" floatLabelType="Auto" class="col-span-1 col-end-5" />
+      </div>
+
+      <!-- Row 3 -->
+      <!-- Address Line 2-->
+      <ejs-textbox id="addrLine2" type="text" placeholder="Address Line 2" floatLabelType="Auto" class="col-span-2"/>
+
+      <!-- Row 4 -->
+
+      <!-- City -->
+      <ejs-textbox id="city" type="text" placeholder="City" floatLabelType="Auto" class="col-span-2" />
+
+      <!-- State -->
+      <ejs-textbox id="state" type="text" placeholder="State/Provence" floatLabelType="Auto" class="col-span-1" />
+
+      <!-- Postal Code -->
+      <ejs-textbox id="zip" type="text" placeholder="Postal Code" floatLabelType="Auto" class="col-span-1" />
+
+      <!-- Country -->
+      <ejs-dropdownlist id='country' type="text" [dataSource]='countries' placeholder="Country" cssClass="e-float" floatLabelType="Auto" class="sm:col-span-1" />
+
+      <!-- Row 4 -->
+      <div class="grid sm:grid-cols-6 xs:grid-cols-2 grid-flow-row md:grid-flow-col gap-4 col-span-2">
+
+        <!-- Phone -->
+        <ejs-textbox id="phone" type="text" placeholder="Phone" floatLabelType="Auto" class="sm:col-span-2 xs:col-span-2" />
+
+        <!-- Annual Name -->
+        <ejs-textbox id="annualName" type="text" placeholder="Annual Name" floatLabelType="Auto" class="sm:col-span-3 xs:col-span-2" />
+
+      </div>
+
+      <!-- Row 5 -->
+      <div class="grid sm:grid-cols-6 xs:grid-cols-2 grid-flow-row md:grid-flow-col gap-4 col-span-2">
+
+          <!-- Email Address -->
+          <div class="sm:col-span-2 xs:col-span-2">
+            <ejs-textbox id="email" type="email" placeholder="Email" floatLabelType="Auto" formControlName="email" #email readonly onfocus="this.removeAttribute('readonly');" />
+              @if (form.get('email')?.touched && form.get('email')?.errors) {
+                <div class="error-message">Email Address is required.</div>
+              }
+          </div>
+
+          <!-- Password -->
+          <div class="sm:col-span-2 xs:col-span-2">
+            <ejs-textbox id="password" type="password" placeholder="Password" floatLabelType="Auto" formControlName="password" #password autocomplete="off" />
+            @if (form.get('password')?.touched && form.get('password')?.errors || this.error) {
+              <div class="error-message">Password is required.</div>
+          }
+          </div>
+
+      </div>
+
+    <button ejs-button cssClass="e-primary" class="mt-5">
+      Register
+    </button>
+
+    <div class="mt-5">
+      <p>
+        Already registered? <span><a class="bg-transparent hover:text-blue-700 text-blue-500 font-semibold" href="/">Login</a></span>
+      </p>
+    </div>
+  </form>
+</div>

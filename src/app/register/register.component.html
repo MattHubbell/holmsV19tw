@@ -1,0 +1,143 @@
+<div div class="bg-gray-100 dark:bg-gray-800 rounded-lg px-14 py-14 ring shadow-xl ring-gray-900/5 container">
+  <form autocomplete="off" [formGroup]="form">
+
+    <h1 class="text-gray-900 dark:text-white mt-2 text-base font-medium tracking-tight">
+      Registration
+    </h1>
+
+    <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+      Membership Form
+    </p>
+
+    <!-- Row 1 on Small Screen -->
+    <div class="flex flex-wrap md:hidden gap-x-4">
+
+      <!-- Are you a member ?-->
+      <div class="w-4 grow max-w-57 mt-6">
+        <ejs-checkbox label="Already a member?" labelPosition="Before" />
+      </div>
+
+      <!-- Member # -->
+      <div class="w-25">
+        <ejs-textbox id="memberNo" type="text" placeholder="Member #" floatLabelType="Auto" />
+      </div>
+
+    </div>
+
+    <!-- Row 1 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <div class="w-25 grow max-w-96 textrequired">
+        <!-- Registration Name -->
+        <ejs-textbox id="name" type="text" placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" formControlName="name"/>
+        @if (form.get('name')?.touched && form.get('name')?.errors) {
+          <div class="error-message">Registration Name is required.</div>
+        }
+      </div>
+
+      <!-- Are you a member ?-->
+      <div class="w-40 flex-none mt-6 hidden md:block">
+        <ejs-checkbox label="Already a member?" labelPosition="Before" />
+      </div>
+
+      <!-- Member # -->
+      <div class="w-35 hidden md:block">
+        <ejs-textbox id="memberNo" type="text" placeholder="Member #" floatLabelType="Auto" formControlName="memberNo"/>
+      </div>
+
+
+    </div> <!-- end of row -->
+
+    <!-- Row 2 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <!-- Address Line 1 -->
+      <div class="w-25 grow max-w-96 textrequired">
+        <ejs-textbox id="address1" type="text" placeholder="Address Line 1" floatLabelType="Auto" formControlName="address1"/>
+      </div>
+
+    </div><!-- end of row -->
+
+    <!-- Row 3 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <!-- Address Line 2 -->
+      <div class="w-25 grow max-w-96">
+        <ejs-textbox id="address2" type="text" placeholder="Address Line 2" floatLabelType="Auto" formControlName="address2"/>
+      </div>
+
+    </div><!-- end of row -->
+
+    <!-- Row 4 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <!-- City -->
+      <div class="w-57 textrequired">
+        <ejs-textbox id="city" type="text" placeholder="City" floatLabelType="Auto" formControlName="city"/>
+      </div>
+
+      <!-- State -->
+      <div class="w-35 textrequired">
+        <ejs-textbox id="state" type="text" placeholder="State/Provence" floatLabelType="Auto" formControlName="state"/>
+      </div>
+
+      <!-- Zip -->
+      <div class="w-35 textrequired">
+        <ejs-textbox id="zip" type="text" placeholder="Postal Code" floatLabelType="Auto" formControlName="zip"/>
+      </div>
+
+      <!-- Country -->
+      <div class="w-57 textrequired">
+        <ejs-dropdownlist id="country" type="text" [dataSource]='countries' placeholder="Country" cssClass="e-float" floatLabelType="Auto" formControlName="country"/>
+      </div>
+
+    </div><!-- end of row -->
+
+    <!-- Row 5 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <!-- Phone -->
+      <div class="w-57">
+        <ejs-textbox id="phone" type="text" placeholder="Phone" floatLabelType="Auto" formControlName="country"/>
+      </div>
+
+      <!-- Annual Name -->
+      <div class="w-25 grow max-w-96 textrequired">
+        <ejs-textbox id="annualName" type="text" placeholder="Annual Name" floatLabelType="Auto" formControlName="country"/>
+      </div>
+
+    </div><!-- end of row -->
+
+    <!-- Row 6 -->
+    <div class="flex flex-wrap gap-x-4">
+
+      <!-- Email Address -->
+      <div class="w-57 textrequired">
+        <ejs-textbox id="email" type="email" placeholder="Email" floatLabelType="Auto" formControlName="email" #email readonly onfocus="this.removeAttribute('readonly');" />
+          @if (form.get('email')?.touched && form.get('email')?.errors) {
+            <div class="error-message">Email Address is required.</div>
+          }
+      </div>
+
+      <!-- Password -->
+      <div class="w-57 textrequired">
+        <ejs-textbox id="password" type="password" placeholder="Password" floatLabelType="Auto" formControlName="password" #password autocomplete="off" />
+        @if (form.get('password')?.touched && form.get('password')?.errors || this.error) {
+          <div class="error-message">Password is required.</div>
+      }
+      </div>
+
+    </div>
+
+    <button ejs-button cssClass="e-primary" class="mt-5">
+      Register
+    </button>
+
+    <div class="mt-5">
+      <p class="text-sm">
+        Already registered? <span><a class="bg-transparent hover:text-blue-700 text-blue-500 font-semibold" href="/">Login</a></span>
+      </p>
+    </div>
+
+  </form>
+</div>

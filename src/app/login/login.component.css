@@ -1,0 +1,68 @@
+.e-input-eye:before {
+  content:'\e345';
+  font-family: e-icons;
+  font-size: 13px;
+}
+
+/* Main Container for a Form */
+/* Default Container Settings */
+.container {
+  margin: 10px;
+  max-width: fit-content;
+  padding: 20px;
+}
+
+/* Tablet */
+@media (min-width:425px) {
+  .container {
+    margin: 30px;
+    max-width: fit-content;
+    padding: 20px;
+  }
+}
+
+@media (min-width:768px) {
+  .container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
+    padding: 20px;
+  }
+}
+
+/* Desktop */
+@media (min-width:900px) {
+  .container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 30%;
+    padding: 20px;
+  }
+}
+
+@media (min-width:1024px) {
+  .container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 50%;
+    padding: 20px;
+  }
+}
+
+@media (min-width:1107px) {
+  .container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 40%;
+    padding: 20px;
+  }
+}
+
+@media (min-width:1440px) {
+  .container {
+    margin: auto;
+    margin-top: 50px;
+    max-width: 30%;
+    padding: 20px;
+  }
+}

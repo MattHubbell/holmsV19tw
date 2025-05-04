@@ -1,0 +1,259 @@
+<div class="bg-white dark:bg-gray-800 rounded-lg px-10 py-14 ring shadow-xl ring-gray-900/5 container" >
+
+  <h1 class="text-gray-900 dark:text-white mt-2 text-base font-medium tracking-tight">
+    New Registrations
+  </h1>
+
+  <p class="text-gray-500 dark:text-gray-400 mt-2 text-sm">
+    Requests
+  </p>
+
+  <form #formData="ngForm" (ngSubmit)="onSubmit(formData)">
+    <div id="new-registrations">
+      <div class="mt-6 p-0 ring shadow-xl ring-gray-900/5">
+        <ejs-grid #grid id="PagingGrid" [dataSource]="newRegistrationService.list" [allowPaging]="true" height="400" (rowSelected)="onOpenDialog($event)">
+          <e-columns>
+            <e-column field='registrationName' headerText='Name' width=200></e-column>
+            <e-column field='street1' headerText='Street 1' width=120></e-column>
+            <e-column field='street2' headerText='Street 2' width=120></e-column>
+            <e-column field='city' headerText='City' width=120></e-column>
+            <e-column field='state' headerText='St' width=35></e-column>
+            <e-column field='zip' headerText='Zip' width=50></e-column>
+          </e-columns>
+        </ejs-grid>
+      </div>
+
+      <ejs-dialog id="dialog" #ejDialog target="#new-registrations" isModal="true" [visible]="false" [showCloseIcon]="true" content="This is a Dialog content" width="60%" class="dialog-contrainer">
+
+        <ng-template #header>
+          <h1> New Registration </h1>
+        </ng-template>
+
+        <ng-template #content class="content-container">
+          <ejs-tab id="tab_default" #ejTab>
+            <e-tabitems>
+
+              <e-tabitem [header]="headerText[0]">
+                <ng-template #content>
+                  <div class="tab-container">
+
+                    <!-- Row 1 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-32 flex-none">
+                        <ejs-dropdownlist id="salutation" name="salutation" [dataSource]='salutations' ngModel [(ngModel)]="model.salutation"
+                          placeholder="Mr/Mrs/Ms/Dr" cssClass="e-float" floatLabelType="Auto"></ejs-dropdownlist>
+                      </div>
+
+                      <div class="w-96 textrequired">
+                        <ejs-textbox id="registrationName" name="registrationName" ngModel [(ngModel)]="model.registrationName"
+                          placeholder="Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-96 textrequired">
+                        <ejs-textbox id="street1" name="street1" ngModel [(ngModel)]="model.street1"
+                          placeholder="Street 1" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-96">
+                        <ejs-textbox id="street2" name="street2" ngModel [(ngModel)]="model.street2"
+                          placeholder="Street 2" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appUppercase />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-57 textrequired">
+                        <ejs-textbox id="city" name="city" ngModel [(ngModel)]="model.city"
+                          placeholder="City" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                      <div class="w-35 textrequired">
+                        <ejs-textbox id="state" name="state" ngModel [(ngModel)]="model.state"
+                          placeholder="State/Provence" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                      <div class="w-35 textrequired">
+                        <ejs-textbox id="zip" name="zip" ngModel [(ngModel)]="model.zip"
+                          placeholder="Postal Code" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                      <div class="w-57 flex-none">
+                        <ejs-dropdownlist id="country" name="country" ngModel [(ngModel)]="model.country" [dataSource]='countries' [fields]="countryFields"
+                          placeholder="Country" cssClass="e-float" floatLabelType="Auto" />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-57">
+                        <ejs-textbox id="phone" name="phone" ngModel [(ngModel)]="model.phone"
+                          placeholder="Phone" floatLabelType="Auto" autocomplete="off" />
+                      </div>
+
+                      <div class="w-57 textrequired">
+                        <ejs-textbox id="email" name="email" type="email" ngModel [(ngModel)]="model.email"
+                          placeholder="Email" floatLabelType="Auto" autocomplete="off" required appFormError="required" />
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <ejs-textbox id="annualNameHidden" name="annualName" ngModel [(ngModel)]="model.annualName" required [hidden]="true" />
+                  <ejs-textbox id="sortNameHidden" name="sortName" ngModel [(ngModel)]="model.sortName" required [hidden]="true" />
+                  <ejs-textbox id="memberTypeHidden" name="memberType" ngModel [(ngModel)]="model.memberType" required [hidden]="true" />
+                  <ejs-textbox id="memberStatusHidden" name="memberStatus" ngModel [(ngModel)]="model.memberStatus" required [hidden]="true" />
+                </ng-template>
+              </e-tabitem>
+
+              <e-tabitem [header]="headerText[1]">
+                <ng-template #content>
+                  <div class="tab-container">
+
+                    <!-- Row 1 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-96 textrequired">
+                        <ejs-textbox id="annualName" name="annualName" ngModel [(ngModel)]="model.annualName"
+                          placeholder="Annual Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" />
+                      </div>
+
+                      <div class="w-75 textrequired">
+                        <ejs-textbox id="sortName" name="sortName" ngModel [(ngModel)]="model.sortName"
+                          placeholder="Sort Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 2 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-50">
+                        <ejs-textbox id="memberNo" name="memberNo" ngModel [(ngModel)]="model.memberNo"
+                          placeholder="Member #" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                      </div>
+
+                      <div class="w-32 flex-none mt-6">
+                        <button id="assignButton" ejs-button type="button" #delButton class="e-control e-btn e-info assignButton" data-ripple="true" (click)="onAssignMemberNo()">Assign</button>
+                      </div>
+                    </div>
+
+                    <!-- Row 3 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-50">
+                        <ejs-textbox id="hgBook" name="hgBook" ngModel [(ngModel)]="model.hgBook"
+                          placeholder="H&G Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                      </div>
+
+                      <div class="w-50">
+                        <ejs-textbox id="arBook" name="arBook" ngModel [(ngModel)]="model.arBook"
+                          placeholder="A&R Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                      </div>
+                      <div class="w-50">
+                        <ejs-textbox id="meBook" name="meBook" ngModel [(ngModel)]="model.meBook"
+                          placeholder="M-E Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-50 flex-none textrequired">
+                        <ejs-dropdownlist id="memberType" name="memberType" ngModel [(ngModel)]="model.memberType" [dataSource]='memberTypeService.list' [fields]="memberTypeFields"
+                          placeholder="Member Type" cssClass="e-float" floatLabelType="Auto" required appFormError="required" />
+                      </div>
+
+                      <div class="w-50 flex-none textrequired">
+                        <ejs-dropdownlist id="memberStatus" name="memberStatus" ngModel [(ngModel)]="model.memberStatus" [dataSource]='memberStatusService.list' [fields]="memberStatusFields"
+                          placeholder="Member Status" cssClass="e-float" floatLabelType="Auto" required appFormError="required" />
+                      </div>
+
+                      <div class="w-40 flex-none mt-6 ">
+                        <ejs-checkbox id="isExistingMember" name="isExistingMember" label="Already a member?" labelPosition="Before" ngModel [(ngModel)]="model.isExistingMember" />
+                      </div>
+
+                    </div>
+
+                    <!-- Row 4 -->
+                    <div class="flex flex-wrap gap-x-4">
+
+                      <div class="w-50">
+                        <ejs-numerictextbox id="lastDuesYear" name="lastDuesYear" ngModel [(ngModel)]="model.lastDuesYear" format='####'
+                          placeholder='Last Dues year' floatLabelType= 'Auto'></ejs-numerictextbox>
+                      </div>
+
+                      <div class="w-50"></div>
+
+                      <div class="w-50">
+                        <ejs-textbox id="existingMemberNo" name="existingMemberNo" ngModel [(ngModel)]="model.existingMemberNo" placeholder="Possible Member #" cssClass="e-float" floatLabelType="Auto" autocomplete="off" [readonly]="true" />
+                      </div>
+
+                    </div>
+
+                  </div>
+                </ng-template>
+              </e-tabitem>
+
+              <e-tabitem [header]="headerText[2]">
+                <ng-template #content>
+                  <div class="tab-container">
+
+                    <h6>
+                        <span>{{model.registrationName}} / </span>
+                        <span>{{model.street1}} / </span>
+                        <span *ngIf="model.street2">{{model.street2}} / </span>
+                        <span>{{model.city}} </span>
+                        <span>{{model.state}}, </span>
+                        <span>{{model.zip}} / </span>
+                        <span> Possible member # {{model.existingMemberNo}} </span>
+                    </h6>
+
+                    <div style="padding:20px 0 0 0">
+                      <ejs-grid #filteredGrid id="PagingGrid" [dataSource]="filteredMemberList" [allowPaging]="false" height="300" (rowSelected)="onRowClick($event)">
+                        <e-columns>
+                          <e-column field='memberNo' headerText='#' textAlign='Right' width=40></e-column>
+                          <e-column field='memberName' headerText='Member Name' width=165></e-column>
+                          <e-column field='addrLine1' headerText='Address 1' width=110></e-column>
+                          <e-column field='city' headerText='City' width=95></e-column>
+                          <e-column field='state' headerText='St' width=30></e-column>
+                          <e-column field='zip' headerText='Zip' width=50></e-column>
+                        </e-columns>
+                      </ejs-grid>
+                    </div>
+
+                  </div>
+
+                </ng-template>
+              </e-tabitem>
+
+            </e-tabitems>
+          </ejs-tab>
+        </ng-template>
+
+        <ng-template #footerTemplate>
+          <label #formMessage>Message</label>
+          <button id="saveButton" ejs-button #sendButton class="e-control e-btn e-primary saveButton" data-ripple="true">Save</button>
+          <button id="delButton" type="button" ejs-button #delButton class="e-control e-btn delButton" data-ripple="true" (click)="onDelete()">Delete</button>
+        </ng-template>
+
+      </ejs-dialog>
+    </div>
+  </form>
+</div>

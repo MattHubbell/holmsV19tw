@@ -1,0 +1,9 @@
+.e-input-eye:before {
+  content:'\e345';
+  font-family: e-icons;
+  font-size: 13px;
+}
+
+.comments-textarea {
+  width: 100% !important;
+}

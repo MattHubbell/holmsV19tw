@@ -1,0 +1,10 @@
+.tab-container {
+  margin: 0 0 15px 0;
+  max-width: fit-content;
+  padding: 10px;
+}
+
+.dialog-contrainer {
+  height: 600px !important;
+  max-height: 600px !important;
+}
