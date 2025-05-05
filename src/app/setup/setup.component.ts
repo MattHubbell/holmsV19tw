@@ -33,7 +33,7 @@ export class SetupComponent implements OnInit, OnDestroy {
         this.model = new Setup();
         this.isNewItem = true;
         this.emailMsg = '';
-        this.setupService.getItem(record => {
+        this.setupService.getItemWithCallback((record:any) => {
           this.selectedItem = record;
           this.model = Setup.clone(this.selectedItem);
           this.isNewItem = false;

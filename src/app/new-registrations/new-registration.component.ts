@@ -1,15 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, inject, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormGroup, FormsModule, NgForm } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+
 import { GridModule, GridComponent, PageSettingsModel, PageService } from '@syncfusion/ej2-angular-grids';
-import { TextBoxModule, TextBoxComponent } from '@syncfusion/ej2-angular-inputs';
-import { ButtonAllModule, ButtonComponent, CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
+import { TextBoxModule, NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
+import { ButtonAllModule, CheckBoxModule } from '@syncfusion/ej2-angular-buttons';
 import { DialogModule, DialogComponent, DialogUtility } from '@syncfusion/ej2-angular-popups';
 import { TabModule, TabComponent} from '@syncfusion/ej2-angular-navigations';
 import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
-import { NumericTextBoxModule } from '@syncfusion/ej2-angular-inputs';
-import { ToastModule, ToastComponent} from '@syncfusion/ej2-angular-notifications';
-import { ToastUtility } from '@syncfusion/ej2-notifications';
+import { ToastModule, ToastComponent, ToastUtility } from '@syncfusion/ej2-angular-notifications';
 
 import { NewRegistration } from "./new-registration.model";
 import { NewRegistrationService } from "./new-registration.service";
@@ -24,9 +23,9 @@ import { MemberService } from '../members/member.service';
 import { Member } from '../members/member.model';
 import { MembershipUser, MembershipUserType } from '../membership-users/membership-user.model';
 import { EmailService } from '../common/email.service';
-import * as f from '../common/functions';
 import { FormErrorDirective } from '../common/form-error.directive';
 import { UppercaseDirective } from '../common/uppercase.directive';
+import * as f from '../common/functions';
 
 @Component({
   selector: 'app-new-registrations',
@@ -84,7 +83,7 @@ export class NewRegistrationComponent implements OnDestroy {
     this.memberStatusService = inject(MemberStatusService);
     this.memberStatusService.getList();
     this.setupService = inject(SetupService);
-    this.setupService.getList();
+    this.setupService.getItem();
     this.memberService = inject(MemberService);
     this.memberService.getList();
     this.emailService = inject(EmailService);
@@ -104,7 +103,7 @@ export class NewRegistrationComponent implements OnDestroy {
   };
 
   onAssignMemberNo():void {
-    this.model.memberNo = this.setupService.item.nextMemberNo.toString();
+    this.model.memberNo = this.setupService.item.nextMemberNo!.toString();
   }
 
   onRowClick(event:any) {
@@ -147,8 +146,6 @@ export class NewRegistrationComponent implements OnDestroy {
   };
 
   onSubmit(form:NgForm) {
-    this.formData!.control.markAllAsTouched();
-
     if(form.invalid) {
       this.formMessage.nativeElement.textContent = "Check for errors.";
       return;
@@ -185,7 +182,7 @@ export class NewRegistrationComponent implements OnDestroy {
     // this.membershipUserService.updateObject(this.selectedMembership, this.key ,this.membershipUser);
     // this.newRegistrationService.deleteItem(this.selectedItem);
 
-    this.setupService.item.nextMemberNo += 1;
+    this.setupService.item.nextMemberNo! += 1;
     // this.setupService.updateItem(this.setupService.list);
 
     this.ejToast = ToastUtility.show(message, 'Success', 2000) as ToastComponent;
@@ -248,16 +245,22 @@ updateMember(newRegistration: NewRegistration, member: any) {
 }
 
 sendAckowledgmentEmail(): void {
-    const body: string = this.emailService.toAcknowledgementBody(this.model.registrationName!, this.setupService.item.regEmailMessage);
-    this.emailService.sendMailJetEmail(this.setupService.item.holmsEmail, "Membership Chair", this.model.email!, this.model.registrationName!, this.setupService.item.appSubTitle + ' - Welcome Member!', '', body, true)
-      .subscribe({
-        next: (message:string) => {
-          this.ejToast = ToastUtility.show(message, 'Email sent', 2000) as ToastComponent;
-        },
-        error: (error:string) => {
-          this.ejToast = ToastUtility.show(error, 'Error sending email', 2000) as ToastComponent;
-        }
+    const body: string = this.emailService.toAcknowledgementBody(this.model.registrationName!, this.setupService.item.regEmailMessage!);
+    let fromEmail = this.setupService.item.holmsEmail!;
+    let fromName = "Membership Chair";
+    let toEmail = this.model.email!;
+    let toName = this.model.registrationName!;
+    let subject = this.setupService.item.appSubTitle + ' - Welcome Member!';
+    let text = '';
+    let sandboxMode = true;
+    this.emailService.sendMailJetEmail(fromEmail, fromName, toEmail, toName, subject, text, body, sandboxMode)
+    .subscribe({
+      next: (message:string) => {
+        this.ejToast = ToastUtility.show(message, 'Email sent', 2000) as ToastComponent;
+      },
+      error: (error:string) => {
+        this.ejToast = ToastUtility.show(error, 'Error sending email', 2000) as ToastComponent;
       }
-    );
+    });
   }
 }

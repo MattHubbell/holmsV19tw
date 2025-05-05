@@ -1,5 +1,5 @@
 <div div class="bg-gray-100 dark:bg-gray-800 rounded-lg px-14 py-14 ring shadow-xl ring-gray-900/5 container">
-  <form autocomplete="off" [formGroup]="form">
+  <form #formData="ngForm" autocomplete="off" (ngSubmit)="onSubmit(formData)">
 
     <h1 class="text-gray-900 dark:text-white mt-2 text-base font-medium tracking-tight">
       Registration
@@ -14,12 +14,14 @@
 
       <!-- Are you a member ?-->
       <div class="w-4 grow max-w-57 mt-6">
-        <ejs-checkbox label="Already a member?" labelPosition="Before" />
+        <ejs-checkbox id="smAlreadyMember" name="smAlreadyMember" ngModel [(ngModel)]="model.isExistingMember"
+          label="Already a member?" labelPosition="Before" tabIndex="-1"/>
       </div>
 
       <!-- Member # -->
       <div class="w-25">
-        <ejs-textbox id="memberNo" type="text" placeholder="Member #" floatLabelType="Auto" />
+        <ejs-textbox id="smMemberNo" name="smMemberNo" ngModel [(ngModel)]="model.existingMemberNo"
+        placeholder="Member #" floatLabelType="Auto" [disabled]="!model.isExistingMember" />
       </div>
 
     </div>
@@ -27,22 +29,22 @@
     <!-- Row 1 -->
     <div class="flex flex-wrap gap-x-4">
 
-      <div class="w-25 grow max-w-96 textrequired">
+      <div class="w-73 grow max-w-96 textrequired">
         <!-- Registration Name -->
-        <ejs-textbox id="name" type="text" placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" formControlName="name"/>
-        @if (form.get('name')?.touched && form.get('name')?.errors) {
-          <div class="error-message">Registration Name is required.</div>
-        }
+        <ejs-textbox id="registrationName" name="registrationName" ngModel [(ngModel)]="model.registrationName"
+          placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" maxlength="35" required appFormError="required" appUppercase />
       </div>
 
       <!-- Are you a member ?-->
       <div class="w-40 flex-none mt-6 hidden md:block">
-        <ejs-checkbox label="Already a member?" labelPosition="Before" />
+        <ejs-checkbox id="alreadyMember" name="alreadyMember" ngModel [(ngModel)]="model.isExistingMember"
+        label="Already a member?" labelPosition="Before" />
       </div>
 
       <!-- Member # -->
       <div class="w-35 hidden md:block">
-        <ejs-textbox id="memberNo" type="text" placeholder="Member #" floatLabelType="Auto" formControlName="memberNo"/>
+        <ejs-textbox id="memberNo" name="memberNo" ngModel [(ngModel)]="model.existingMemberNo"
+          placeholder="Member #" floatLabelType="Auto" maxlength="4" [disabled]="!model.isExistingMember"/>
       </div>
 
 
@@ -52,8 +54,9 @@
     <div class="flex flex-wrap gap-x-4">
 
       <!-- Address Line 1 -->
-      <div class="w-25 grow max-w-96 textrequired">
-        <ejs-textbox id="address1" type="text" placeholder="Address Line 1" floatLabelType="Auto" formControlName="address1"/>
+      <div class="w-73 grow max-w-96 textrequired">
+        <ejs-textbox id="street1" name="street1" ngModel [(ngModel)]="model.street1"
+          placeholder="Address Line 1" floatLabelType="Auto" maxlength="35" required appFormError="required" appUppercase />
       </div>
 
     </div><!-- end of row -->
@@ -62,8 +65,9 @@
     <div class="flex flex-wrap gap-x-4">
 
       <!-- Address Line 2 -->
-      <div class="w-25 grow max-w-96">
-        <ejs-textbox id="address2" type="text" placeholder="Address Line 2" floatLabelType="Auto" formControlName="address2"/>
+      <div class="w-73 grow max-w-96">
+        <ejs-textbox id="street2" name="street2" ngModel [(ngModel)]="model.street2"
+          placeholder="Address Line 2" floatLabelType="Auto" appUppercase maxlength="35" />
       </div>
 
     </div><!-- end of row -->
@@ -73,22 +77,26 @@
 
       <!-- City -->
       <div class="w-57 textrequired">
-        <ejs-textbox id="city" type="text" placeholder="City" floatLabelType="Auto" formControlName="city"/>
+        <ejs-textbox id="city" name="city" ngModel [(ngModel)]="model.city"
+          placeholder="City" floatLabelType="Auto" maxlength="25" required appFormError="required" appUppercase/>
       </div>
 
       <!-- State -->
       <div class="w-35 textrequired">
-        <ejs-textbox id="state" type="text" placeholder="State/Provence" floatLabelType="Auto" formControlName="state"/>
+        <ejs-textbox id="state" name="state" ngModel [(ngModel)]="model.state"
+          placeholder="State/Provence" floatLabelType="Auto" maxlength="2" required appFormError="required" appUppercase/>
       </div>
 
       <!-- Zip -->
       <div class="w-35 textrequired">
-        <ejs-textbox id="zip" type="text" placeholder="Postal Code" floatLabelType="Auto" formControlName="zip"/>
+        <ejs-textbox id="zip" name="zip" ngModel [(ngModel)]="model.zip"
+        placeholder="Postal Code" floatLabelType="Auto" maxlength="9" required appFormError="required" appUppercase/>
       </div>
 
       <!-- Country -->
       <div class="w-57 textrequired">
-        <ejs-dropdownlist id="country" type="text" [dataSource]='countries' placeholder="Country" cssClass="e-float" floatLabelType="Auto" formControlName="country"/>
+        <ejs-dropdownlist id="country" name="country" [dataSource]="countries" ngModel [(ngModel)]="model.country"
+          placeholder="Country" cssClass="e-float" floatLabelType="Auto" required appFormError="required" appUppercase/>
       </div>
 
     </div><!-- end of row -->
@@ -98,12 +106,14 @@
 
       <!-- Phone -->
       <div class="w-57">
-        <ejs-textbox id="phone" type="text" placeholder="Phone" floatLabelType="Auto" formControlName="country"/>
+        <ejs-textbox id="phone" name="phone" ngModel [(ngModel)]="model.phone"
+        placeholder="Phone" floatLabelType="Auto" maxlength="25" />
       </div>
 
       <!-- Annual Name -->
       <div class="w-25 grow max-w-96 textrequired">
-        <ejs-textbox id="annualName" type="text" placeholder="Annual Name" floatLabelType="Auto" formControlName="country"/>
+        <ejs-textbox id="annualName" name="annualName" ngModel [(ngModel)]="model.annualName"
+        placeholder="Annual Name" floatLabelType="Auto" maxlength="50" required appFormError="required" />
       </div>
 
     </div><!-- end of row -->
@@ -113,18 +123,14 @@
 
       <!-- Email Address -->
       <div class="w-57 textrequired">
-        <ejs-textbox id="email" type="email" placeholder="Email" floatLabelType="Auto" formControlName="email" #email readonly onfocus="this.removeAttribute('readonly');" />
-          @if (form.get('email')?.touched && form.get('email')?.errors) {
-            <div class="error-message">Email Address is required.</div>
-          }
+        <ejs-textbox id="email" type="email" name="email" ngModel [(ngModel)]="model.email"
+          placeholder="Email" floatLabelType="Auto" #email readonly onfocus="this.removeAttribute('readonly');" maxlength="50" appFormError="required" />
       </div>
 
       <!-- Password -->
       <div class="w-57 textrequired">
-        <ejs-textbox id="password" type="password" placeholder="Password" floatLabelType="Auto" formControlName="password" #password autocomplete="off" />
-        @if (form.get('password')?.touched && form.get('password')?.errors || this.error) {
-          <div class="error-message">Password is required.</div>
-      }
+        <ejs-textbox id="password" type="password" name="password" ngModel [(ngModel)]="model.password"
+        placeholder="Password" floatLabelType="Auto" #password autocomplete="off" maxlength="50" appFormError="required" />
       </div>
 
     </div>

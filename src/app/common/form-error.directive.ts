@@ -16,7 +16,7 @@ export class FormErrorDirective implements OnInit {
   ngOnInit() {
     this.control.control!.statusChanges.subscribe(() => {
       const controlErrors = this.control.errors;
-      if (controlErrors && controlErrors[this.errorName]) {
+      if (controlErrors && controlErrors[this.errorName] && (this.control.dirty || this.control.touched)) {
         this.displayError();
       } else {
         this.removeError();

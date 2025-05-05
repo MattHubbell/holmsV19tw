@@ -12,10 +12,6 @@ import { orderByChild, remove } from 'firebase/database';
 })
 export class FirebaseService {
 
-
-  user: Observable<User | null>;
-
-
   private readonly database;
   private readonly auth;
 
@@ -25,7 +21,6 @@ export class FirebaseService {
   constructor() {
     this.database = getDatabase(inject(FirebaseApp));
     this.auth = getAuth();
-    this.user = user(this.auth);
   }
 
   /* Login */
@@ -41,19 +36,6 @@ export class FirebaseService {
   get currentUser(): any {
     return this.auth.currentUser;
   }
-
-  // get user(): User {
-  //   let user:User = new User();
-  //   if (this.authenticated) {
-  //     user.uid = this.auth.currentUser?.uid;
-  //       user.id = this.auth.currentUser.uid;
-  //       user.name = this.afAuth.auth.currentUser.displayName;
-  //       user.email = this.afAuth.auth.currentUser.email;
-  //       user.picture = this.afAuth.auth.currentUser.photoURL;
-  //       user.verified = this.afAuth.auth.currentUser.emailVerified;
-  //   }
-  //   return user;
-// }
 
 // signInWithGoogle(): Promise<any> {
 //     return this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());

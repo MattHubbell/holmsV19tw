@@ -7,21 +7,21 @@ import { Setup } from './setup.model';
 })
 export class SetupService {
 
-  item: any;
+  item!: Setup;
   private firebaseService: FirebaseService
 
   constructor() {
     this.firebaseService = inject(FirebaseService);
   }
 
-  getList(): void {
+  getItem(): void {
       this.firebaseService.getDynamicItemWithCallback(Setup.TableName,(record) => {
         this.item = record;
       });
     }
   
 
-  getItem(callback: (data: any)=> void): void {
+  getItemWithCallback(callback: (data: any)=> void): void {
     this.firebaseService.getDynamicItemWithCallback(Setup.TableName, (record) => {
       callback(record);
     });
