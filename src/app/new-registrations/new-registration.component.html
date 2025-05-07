@@ -23,13 +23,14 @@
         </ejs-grid>
       </div>
 
-      <ejs-dialog id="dialog" #ejDialog target="#new-registrations" isModal="true" [visible]="false" [showCloseIcon]="true" content="This is a Dialog content" width="60%" class="dialog-contrainer">
+      <ejs-dialog id="dialog" #ejDialog target="#new-registrations" isModal="true" [visible]="false" [showCloseIcon]="true" 
+        content="This is a Dialog content" class="dialog-contrainer">
 
         <ng-template #header>
           <h1> New Registration </h1>
         </ng-template>
 
-        <ng-template #content class="content-container">
+        <ng-template #content>
           <ejs-tab id="tab_default" #ejTab>
             <e-tabitems>
 
@@ -46,8 +47,8 @@
                       </div>
 
                       <div class="w-96 textrequired">
-                        <ejs-textbox id="registrationName" name="registrationName" ngModel [(ngModel)]="model.registrationName"
-                          placeholder="Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="registrationName" name="registrationName" ngModel [(ngModel)]="model.registrationName" maxlength="35"
+                          placeholder="Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                     </div>
@@ -56,8 +57,8 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-96 textrequired">
-                        <ejs-textbox id="street1" name="street1" ngModel [(ngModel)]="model.street1"
-                          placeholder="Street 1" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="street1" name="street1" ngModel [(ngModel)]="model.street1" maxlength="35"
+                          placeholder="Street 1" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                     </div>
@@ -66,8 +67,8 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-96">
-                        <ejs-textbox id="street2" name="street2" ngModel [(ngModel)]="model.street2"
-                          placeholder="Street 2" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appUppercase />
+                        <ejs-textbox id="street2" name="street2" ngModel [(ngModel)]="model.street2" maxlength="35"
+                          placeholder="Street 2" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appInputHint="not-required" appUppercase />
                       </div>
 
                     </div>
@@ -76,18 +77,18 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-57 textrequired">
-                        <ejs-textbox id="city" name="city" ngModel [(ngModel)]="model.city"
-                          placeholder="City" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="city" name="city" ngModel [(ngModel)]="model.city" maxlength="25"
+                          placeholder="City" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                       <div class="w-35 textrequired">
-                        <ejs-textbox id="state" name="state" ngModel [(ngModel)]="model.state"
-                          placeholder="State/Provence" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="state" name="state" ngModel [(ngModel)]="model.state" maxlength="2"
+                          placeholder="State/Provence" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                       <div class="w-35 textrequired">
-                        <ejs-textbox id="zip" name="zip" ngModel [(ngModel)]="model.zip"
-                          placeholder="Postal Code" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="zip" name="zip" ngModel [(ngModel)]="model.zip" maxlength="10"
+                          placeholder="Postal Code" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                       <div class="w-57 flex-none">
@@ -101,23 +102,23 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-57">
-                        <ejs-textbox id="phone" name="phone" ngModel [(ngModel)]="model.phone"
-                          placeholder="Phone" floatLabelType="Auto" autocomplete="off" />
+                        <ejs-textbox id="phone" name="phone" ngModel [(ngModel)]="model.phone" maxlength="25"
+                          placeholder="Phone" floatLabelType="Auto" autocomplete="off" appInputHint="not-required"/>
                       </div>
 
                       <div class="w-57 textrequired">
-                        <ejs-textbox id="email" name="email" type="email" ngModel [(ngModel)]="model.email"
-                          placeholder="Email" floatLabelType="Auto" autocomplete="off" required appFormError="required" />
+                        <ejs-textbox id="email" name="email" type="email" ngModel [(ngModel)]="model.email" maxlength="50"
+                          placeholder="Email" floatLabelType="Auto" autocomplete="off" required appInputHint="required" />
                       </div>
 
                     </div>
 
                   </div>
 
-                  <ejs-textbox id="annualNameHidden" name="annualName" ngModel [(ngModel)]="model.annualName" required [hidden]="true" />
-                  <ejs-textbox id="sortNameHidden" name="sortName" ngModel [(ngModel)]="model.sortName" required [hidden]="true" />
-                  <ejs-textbox id="memberTypeHidden" name="memberType" ngModel [(ngModel)]="model.memberType" required [hidden]="true" />
-                  <ejs-textbox id="memberStatusHidden" name="memberStatus" ngModel [(ngModel)]="model.memberStatus" required [hidden]="true" />
+                  <!-- <ejs-textbox id="annualNameHidden" name="annualName" ngModel [(ngModel)]="model.annualName" required [hidden]="true"/> -->
+                  <!-- <ejs-textbox id="sortNameHidden" name="sortName" ngModel [(ngModel)]="model.sortName" required [hidden]="true" /> -->
+                  <!-- <ejs-textbox id="memberTypeHidden" name="memberType" ngModel [(ngModel)]="model.memberType" required [hidden]="true" /> -->
+                  <!-- <ejs-textbox id="memberStatusHidden" name="memberStatus" ngModel [(ngModel)]="model.memberStatus" required [hidden]="true" /> -->
                 </ng-template>
               </e-tabitem>
 
@@ -129,13 +130,13 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-96 textrequired">
-                        <ejs-textbox id="annualName" name="annualName" ngModel [(ngModel)]="model.annualName"
-                          placeholder="Annual Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" />
+                        <ejs-textbox id="annualName" name="annualName" ngModel [(ngModel)]="model.annualName" maxlength="50"
+                          placeholder="Annual Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" />
                       </div>
 
                       <div class="w-75 textrequired">
-                        <ejs-textbox id="sortName" name="sortName" ngModel [(ngModel)]="model.sortName"
-                          placeholder="Sort Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appFormError="required" appUppercase />
+                        <ejs-textbox id="sortName" name="sortName" ngModel [(ngModel)]="model.sortName" maxlength="25"
+                          placeholder="Sort Name" cssClass="e-float" floatLabelType="Auto" autocomplete="off" required appInputHint="required" appUppercase />
                       </div>
 
                     </div>
@@ -144,8 +145,8 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-50">
-                        <ejs-textbox id="memberNo" name="memberNo" ngModel [(ngModel)]="model.memberNo"
-                          placeholder="Member #" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                        <ejs-textbox id="memberNo" name="memberNo" ngModel [(ngModel)]="model.memberNo" maxlength="5"
+                          placeholder="Member #" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appInputHint="not-required" />
                       </div>
 
                       <div class="w-32 flex-none mt-6">
@@ -157,17 +158,17 @@
                     <div class="flex flex-wrap gap-x-4">
 
                       <div class="w-50">
-                        <ejs-textbox id="hgBook" name="hgBook" ngModel [(ngModel)]="model.hgBook"
-                          placeholder="H&G Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                        <ejs-textbox id="hgBook" name="hgBook" ngModel [(ngModel)]="model.hgBook" maxlength="7"
+                          placeholder="H&G Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appInputHint="not-required" />
                       </div>
 
                       <div class="w-50">
-                        <ejs-textbox id="arBook" name="arBook" ngModel [(ngModel)]="model.arBook"
-                          placeholder="A&R Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                        <ejs-textbox id="arBook" name="arBook" ngModel [(ngModel)]="model.arBook" maxlength="7"
+                          placeholder="A&R Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appInputHint="not-required" />
                       </div>
                       <div class="w-50">
-                        <ejs-textbox id="meBook" name="meBook" ngModel [(ngModel)]="model.meBook"
-                          placeholder="M-E Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" />
+                        <ejs-textbox id="meBook" name="meBook" ngModel [(ngModel)]="model.meBook" maxlength="7"
+                          placeholder="M-E Book" cssClass="e-float" floatLabelType="Auto" autocomplete="off" appInputHint="not-required" />
                       </div>
 
                     </div>
@@ -177,12 +178,12 @@
 
                       <div class="w-50 flex-none textrequired">
                         <ejs-dropdownlist id="memberType" name="memberType" ngModel [(ngModel)]="model.memberType" [dataSource]='memberTypeService.list' [fields]="memberTypeFields"
-                          placeholder="Member Type" cssClass="e-float" floatLabelType="Auto" required appFormError="required" />
+                          placeholder="Member Type" cssClass="e-float" floatLabelType="Auto" required />
                       </div>
 
                       <div class="w-50 flex-none textrequired">
                         <ejs-dropdownlist id="memberStatus" name="memberStatus" ngModel [(ngModel)]="model.memberStatus" [dataSource]='memberStatusService.list' [fields]="memberStatusFields"
-                          placeholder="Member Status" cssClass="e-float" floatLabelType="Auto" required appFormError="required" />
+                          placeholder="Member Status" cssClass="e-float" floatLabelType="Auto" required />
                       </div>
 
                       <div class="w-40 flex-none mt-6 ">

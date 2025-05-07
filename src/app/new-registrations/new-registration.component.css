@@ -5,6 +5,42 @@
 }
 
 .dialog-contrainer {
-  height: 600px !important;
-  max-height: 600px !important;
+  max-height: 700px !important;
+  max-width: 98%;
+}
+
+.e-dialog .e-dlg-header-content + .e-dlg-content {
+  padding: 5px;
+}
+
+/* Tablet */
+@media (min-width:425px) {
+  .dialog-contrainer {
+    max-height: 700px !important;
+    max-width: 98%;
+  }
+  .e-dialog .e-dlg-header-content + .e-dlg-content {
+    padding: 10px;
+  }
+}
+
+@media (min-width:600px) {
+  .dialog-contrainer {
+    max-height: 700px !important;
+    max-width: 98%;
+  }  
+  .e-dialog .e-dlg-header-content + .e-dlg-content {
+    padding: 30px;
+  }
+}
+
+/* Desktop */
+@media (min-width:900px) {
+  .dialog-contrainer {
+    max-height: 700px !important;
+    max-width: 900px;
+  }  
+  e-dialog .e-dlg-header-content + .e-dlg-content {
+    padding: 30px;
+  }
 }

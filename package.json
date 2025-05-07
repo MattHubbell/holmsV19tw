@@ -18,7 +18,6 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
-    "@ngneat/until-destroy": "^10.0.0",
     "@syncfusion/ej2-angular-base": "^29.1.33",
     "@syncfusion/ej2-angular-buttons": "^29.1.34",
     "@syncfusion/ej2-angular-calendars": "^29.1.35",

@@ -1,4 +1,5 @@
-import { Component, ViewEncapsulation, inject, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewEncapsulation, inject, ViewChild, AfterViewInit, } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -9,23 +10,25 @@ import { DropDownListModule } from '@syncfusion/ej2-angular-dropdowns';
 import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
 
 import { NewRegistration } from '../new-registrations/new-registration.model';
-import { Countries } from '../common/countries';
-import { FormErrorDirective } from '../common/form-error.directive';
-import { UppercaseDirective } from '../common/uppercase.directive';
 import { NewRegistrationService } from '../new-registrations/new-registration.service';
 import { FirebaseService } from '../common/firebase.service';
 import { MembershipUser, MembershipUserType } from '../membership-users/membership-user.model';
 import { EmailService } from '../common/email.service';
 import { SetupService } from '../setup/setup.service';
 import { MembershipUserService } from '../membership-users/membership-user.service';
+import { Countries } from '../common/countries';
+import { UppercaseDirective } from '../common/uppercase.directive';
+import { InputHintDirective } from '../common/input-hint.directive';
+
 import  * as f from '../common/functions';
 
 @Component({
   selector: 'app-register',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [
-    ButtonModule, CheckBoxModule, TextBoxModule,  FormsModule, ToastModule, DropDownListModule, NumericTextBoxModule, TextAreaModule, DatePickerModule, FormErrorDirective, UppercaseDirective
+  imports: [ 
+    CommonModule, ButtonModule, CheckBoxModule, TextBoxModule,  FormsModule, ToastModule, DropDownListModule, NumericTextBoxModule, TextAreaModule, DatePickerModule, 
+    UppercaseDirective, InputHintDirective
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
@@ -40,6 +43,7 @@ export class RegisterComponent implements AfterViewInit {
   error: boolean = false;
   model: NewRegistration = new NewRegistration();
   router: Router = inject(Router);
+  salutations: any = [ "MR", "MRS", "MR & MRS", "MS", "DR" ];
   countries: any = Countries.map((rec) => rec.name.toUpperCase());
 
   firebaseService: FirebaseService;
@@ -73,6 +77,10 @@ export class RegisterComponent implements AfterViewInit {
 
   onSubmit(form:NgForm): void {
     if(form.invalid) {
+      for (let control in form.form.controls) {
+        form.form.get(control)?.markAsTouched();
+        form.form.get(control)?.updateValueAndValidity();
+      }
       return;
     }
 
@@ -97,8 +105,8 @@ export class RegisterComponent implements AfterViewInit {
     let membershipUserType = MembershipUserType.New;
     let membershipUser = new MembershipUser(registrationName, existingMemberNo, membershipUserType);
     let uid = this.firebaseService.currentUser.uid;
-    // this.membershipUserService.addItem(uid, membershipUser);
-    // this.newRegistrationService.addItem(uid, this.model);
+    this.membershipUserService.addItem(uid, membershipUser);
+    this.newRegistrationService.addItem(uid, this.model);
     this.sendNewMemberEmailToMembershipChair();
   }
 

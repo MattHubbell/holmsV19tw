@@ -29,11 +29,21 @@
     <!-- Row 1 -->
     <div class="flex flex-wrap gap-x-4">
 
-      <div class="w-73 grow max-w-96 textrequired">
-        <!-- Registration Name -->
-        <ejs-textbox id="registrationName" name="registrationName" ngModel [(ngModel)]="model.registrationName"
-          placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" maxlength="35" required appFormError="required" appUppercase />
+        <!-- Salutation -->
+        <div class="w-32 flex-none">
+        <ejs-dropdownlist id="salutation" name="salutation" [dataSource]='salutations' ngModel [(ngModel)]="model.salutation"
+          placeholder="Mr/Mrs/Ms/Dr" cssClass="e-float" floatLabelType="Auto"></ejs-dropdownlist>
       </div>
+
+      <!-- Registration Name -->
+      <div class="w-73 grow max-w-96 textrequired">
+        <ejs-textbox id="registrationName" name="registrationName" [(ngModel)]="model.registrationName" 
+          placeholder="Registration Name (First Middle Last)" floatLabelType="Auto" maxlength="35" required appInputHint="required" appUppercase />
+        <!-- <div class="flex justify-between input-hint">
+          <p class="error-message"></p>
+          <p class="input-hint-length">{{model.registrationName?.length}} / 35</p>
+        </div>       -->
+      </div> 
 
       <!-- Are you a member ?-->
       <div class="w-40 flex-none mt-6 hidden md:block">
@@ -56,7 +66,7 @@
       <!-- Address Line 1 -->
       <div class="w-73 grow max-w-96 textrequired">
         <ejs-textbox id="street1" name="street1" ngModel [(ngModel)]="model.street1"
-          placeholder="Address Line 1" floatLabelType="Auto" maxlength="35" required appFormError="required" appUppercase />
+          placeholder="Address Line 1" floatLabelType="Auto" maxlength="35" required appInputHint="required" appUppercase />
       </div>
 
     </div><!-- end of row -->
@@ -67,7 +77,7 @@
       <!-- Address Line 2 -->
       <div class="w-73 grow max-w-96">
         <ejs-textbox id="street2" name="street2" ngModel [(ngModel)]="model.street2"
-          placeholder="Address Line 2" floatLabelType="Auto" appUppercase maxlength="35" />
+          placeholder="Address Line 2" floatLabelType="Auto" appUppercase maxlength="35" appInputHint="not-required"/>
       </div>
 
     </div><!-- end of row -->
@@ -78,25 +88,25 @@
       <!-- City -->
       <div class="w-57 textrequired">
         <ejs-textbox id="city" name="city" ngModel [(ngModel)]="model.city"
-          placeholder="City" floatLabelType="Auto" maxlength="25" required appFormError="required" appUppercase/>
+          placeholder="City" floatLabelType="Auto" maxlength="25" required appInputHint="required"  appUppercase/>
       </div>
 
       <!-- State -->
       <div class="w-35 textrequired">
         <ejs-textbox id="state" name="state" ngModel [(ngModel)]="model.state"
-          placeholder="State/Provence" floatLabelType="Auto" maxlength="2" required appFormError="required" appUppercase/>
+          placeholder="State/Provence" floatLabelType="Auto" maxlength="2" required appInputHint="required" appUppercase/>
       </div>
 
       <!-- Zip -->
       <div class="w-35 textrequired">
         <ejs-textbox id="zip" name="zip" ngModel [(ngModel)]="model.zip"
-        placeholder="Postal Code" floatLabelType="Auto" maxlength="9" required appFormError="required" appUppercase/>
+        placeholder="Postal Code" floatLabelType="Auto" maxlength="10" required appInputHint="required" appUppercase/>
       </div>
 
       <!-- Country -->
       <div class="w-57 textrequired">
         <ejs-dropdownlist id="country" name="country" [dataSource]="countries" ngModel [(ngModel)]="model.country"
-          placeholder="Country" cssClass="e-float" floatLabelType="Auto" required appFormError="required" appUppercase/>
+          placeholder="Country" cssClass="e-float" floatLabelType="Auto" required appUppercase/>
       </div>
 
     </div><!-- end of row -->
@@ -107,13 +117,13 @@
       <!-- Phone -->
       <div class="w-57">
         <ejs-textbox id="phone" name="phone" ngModel [(ngModel)]="model.phone"
-        placeholder="Phone" floatLabelType="Auto" maxlength="25" />
+        placeholder="Phone" floatLabelType="Auto" maxlength="25" appInputHint="not-required"/>
       </div>
 
       <!-- Annual Name -->
       <div class="w-25 grow max-w-96 textrequired">
         <ejs-textbox id="annualName" name="annualName" ngModel [(ngModel)]="model.annualName"
-        placeholder="Annual Name" floatLabelType="Auto" maxlength="50" required appFormError="required" />
+        placeholder="Annual Name" floatLabelType="Auto" maxlength="50" required appInputHint="required" />
       </div>
 
     </div><!-- end of row -->
@@ -124,13 +134,13 @@
       <!-- Email Address -->
       <div class="w-57 textrequired">
         <ejs-textbox id="email" type="email" name="email" ngModel [(ngModel)]="model.email"
-          placeholder="Email" floatLabelType="Auto" #email readonly onfocus="this.removeAttribute('readonly');" maxlength="50" appFormError="required" />
+          placeholder="Email" floatLabelType="Auto" #email readonly onfocus="this.removeAttribute('readonly');" maxlength="50" appInputHint="required" />
       </div>
 
       <!-- Password -->
       <div class="w-57 textrequired">
         <ejs-textbox id="password" type="password" name="password" ngModel [(ngModel)]="model.password"
-        placeholder="Password" floatLabelType="Auto" #password autocomplete="off" maxlength="50" appFormError="required" />
+        placeholder="Password" floatLabelType="Auto" #password autocomplete="off" maxlength="50" required appInputHint="required" />
       </div>
 
     </div>

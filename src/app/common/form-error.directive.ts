@@ -27,7 +27,7 @@ export class FormErrorDirective implements OnInit {
   private displayError() {
     let errorElement = this.el.nativeElement.nextElementSibling;
     if (!errorElement || !errorElement.classList.contains('error-message')) {
-       errorElement = this.renderer.createElement('div');
+       errorElement = this.renderer.createElement('p');
        this.renderer.addClass(errorElement, 'error-message');
        this.renderer.insertBefore(this.el.nativeElement.parentNode, errorElement, this.el.nativeElement.nextSibling);
     }

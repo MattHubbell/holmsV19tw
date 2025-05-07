@@ -1,41 +1,31 @@
 import { Component, ViewEncapsulation, inject, ViewChild, AfterViewInit } from '@angular/core';
-import {
-  FormsModule,
-  Validators,
-  ReactiveFormsModule,
-  FormBuilder,
-} from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { TextBoxModule, TextBoxComponent } from '@syncfusion/ej2-angular-inputs';
 import { ButtonModule } from '@syncfusion/ej2-angular-buttons';
 import { FirebaseService } from '../common/firebase.service';
 import { Router } from '@angular/router';
+import { InputHintDirective } from '../common/input-hint.directive';
 
 @Component({
   selector: 'app-user-login',
   standalone: true,
   encapsulation: ViewEncapsulation.None,
-  imports: [ ButtonModule, TextBoxModule,  FormsModule, ReactiveFormsModule],
+  imports: [ 
+    ButtonModule, TextBoxModule, FormsModule, InputHintDirective
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent implements AfterViewInit {
+
   @ViewChild('password', { static: true })
   public textbox?: TextBoxComponent;
+  
+  model: Login = new Login();
   error: boolean = false;
   errorMsg: any;
-  fb: FormBuilder = inject(FormBuilder);
   firebaseService: FirebaseService = inject(FirebaseService);
   router: Router = inject(Router);
-  form = this.fb.nonNullable.group({
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/),
-      ],
-    ],
-    password: ['', Validators.required],
-  });
 
   constructor() {}
 
@@ -67,9 +57,16 @@ export class LoginComponent implements AfterViewInit {
   //   });
   // }
 
-  signIn(): void {
-    const rawForm = this.form.getRawValue();
-		this.firebaseService.signInWithEmail(rawForm.email, rawForm.password)
+  onSignIn(form: NgForm): void {
+    if (form.invalid) {
+      for (let control in form.form.controls) {
+        form.form.get(control)?.markAsTouched();
+        form.form.get(control)?.updateValueAndValidity();
+      }
+      return;
+    }
+
+		this.firebaseService.signInWithEmail(this.model.email!, this.model.password!)
 		.then(() => {
 			this.completeSignIn();
 		})
@@ -97,4 +94,14 @@ export class LoginComponent implements AfterViewInit {
 			this.errorMsg = message;
 		}
 	}
+}
+
+export class Login {
+  email?: string;
+  password?: string;
+
+  constructor(email?: string, password?: string) {
+    this.email = (email) ? this.email : '';
+    this.password = (password) ? this.password : '';
+  }
 }

@@ -87,14 +87,10 @@ export function filterBy(left:any, right:any, exclude:any): boolean {
   });
 
   const leftList:string[] = left.split(" ");
-  const rightList: string[] = right.split(" ");
-
   leftList.filter((leftPart:string) => {
-    rightList.filter((rightPart:string) => {
-      if (leftPart == rightPart) {
-        match = true;
-      }
-    });
+    if (right.includes(leftPart)) {
+      match = true;
+    }
   });
   return match;
 }

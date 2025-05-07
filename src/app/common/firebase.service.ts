@@ -219,14 +219,14 @@ async changeEmail(email: string): Promise<any> {
 
   addObject(objectName:string, data:any): void {
     this.consoleLog(`Add ${objectName} data: ${JSON.stringify(data)}`);
-    set(ref(this.database, objectName),{ data })
+    set(ref(this.database, objectName), data)
       .then(_ => console.log(objectName + ' added'))
       .catch(err => console.log(objectName + ' error: ' + err));
   }
 
   updateObject(objectName:string, data:any): void {
     this.consoleLog(`Update ${objectName} data: ${JSON.stringify(data)}`);
-    update(ref(this.database, objectName),{ data })
+    update(ref(this.database, objectName), data)
     .then(_ => console.log(objectName + ' updated'))
     .catch(err => console.log(objectName + ' error: ' + err));
   }

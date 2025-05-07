@@ -48,9 +48,14 @@ body {
   }
 }
 
+.input-hint-length {
+  font-size: x-small;
+  margin-right: 6px;
+}
+
 .error-message {
   color: red;
-  font-size: smaller;
+  font-size: x-small;
   margin-left: 6px;
 }
 
@@ -58,7 +63,7 @@ body {
 /* Default Container Settings */
 .container {
   margin: 2%;
-  max-width: fit-content;
+  max-width: 96%;
   padding: 5px;
 }
 
@@ -66,7 +71,7 @@ body {
 @media (min-width:425px) {
   .container {
     margin: 2%;
-    max-width: fit-content;
+    max-width: 96%;
     padding: 20px;
   }
 }

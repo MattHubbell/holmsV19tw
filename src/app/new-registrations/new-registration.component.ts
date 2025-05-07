@@ -12,7 +12,6 @@ import { ToastModule, ToastComponent, ToastUtility } from '@syncfusion/ej2-angul
 
 import { NewRegistration } from "./new-registration.model";
 import { NewRegistrationService } from "./new-registration.service";
-import { Countries } from '../common/countries';
 import { MemberTypeService } from '../member-types/member-type.service';
 import { Observable } from 'rxjs';
 import { MemberType } from '../member-types/member-type.model';
@@ -23,8 +22,9 @@ import { MemberService } from '../members/member.service';
 import { Member } from '../members/member.model';
 import { MembershipUser, MembershipUserType } from '../membership-users/membership-user.model';
 import { EmailService } from '../common/email.service';
-import { FormErrorDirective } from '../common/form-error.directive';
+import { Countries } from '../common/countries';
 import { UppercaseDirective } from '../common/uppercase.directive';
+import { InputHintDirective } from '../common/input-hint.directive';
 import * as f from '../common/functions';
 
 @Component({
@@ -33,7 +33,10 @@ import * as f from '../common/functions';
   templateUrl: './new-registration.component.html',
   styleUrls: [ './new-registration.component.css' ],
   encapsulation: ViewEncapsulation.None,
-  imports: [ CommonModule, FormsModule, GridModule, TextBoxModule, ButtonAllModule, CheckBoxModule, DialogModule, TabModule, DropDownListModule, NumericTextBoxModule, ToastModule, FormErrorDirective, UppercaseDirective ],
+  imports: [ 
+    CommonModule, FormsModule, GridModule, TextBoxModule, ButtonAllModule, CheckBoxModule, DialogModule, TabModule, DropDownListModule, NumericTextBoxModule, ToastModule, 
+    UppercaseDirective, InputHintDirective 
+  ],
   providers: [PageService],
 })
 export class NewRegistrationComponent implements OnDestroy {
@@ -147,7 +150,10 @@ export class NewRegistrationComponent implements OnDestroy {
 
   onSubmit(form:NgForm) {
     if(form.invalid) {
-      this.formMessage.nativeElement.textContent = "Check for errors.";
+      for (let control in form.form.controls) {
+        form.form.get(control)?.markAsTouched();
+        form.form.get(control)?.updateValueAndValidity();
+      }
       return;
     }
 
@@ -245,13 +251,13 @@ updateMember(newRegistration: NewRegistration, member: any) {
 }
 
 sendAckowledgmentEmail(): void {
-    const body: string = this.emailService.toAcknowledgementBody(this.model.registrationName!, this.setupService.item.regEmailMessage!);
     let fromEmail = this.setupService.item.holmsEmail!;
     let fromName = "Membership Chair";
     let toEmail = this.model.email!;
     let toName = this.model.registrationName!;
     let subject = this.setupService.item.appSubTitle + ' - Welcome Member!';
     let text = '';
+    let body = this.emailService.toAcknowledgementBody(this.model.registrationName!, this.setupService.item.regEmailMessage!);
     let sandboxMode = true;
     this.emailService.sendMailJetEmail(fromEmail, fromName, toEmail, toName, subject, text, body, sandboxMode)
     .subscribe({
